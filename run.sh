@@ -6,4 +6,4 @@ exec > >(tee -a ${LOGFILE})
 exec 2> >(tee -a ${LOGFILE} >&2)
 env | sort | grep SCA #debug..
 
-./blastdb.py
+$SCA_SERVICE_DIR/blastdb.py

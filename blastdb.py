@@ -8,7 +8,7 @@ config=json.loads(config_json)
 os.environ["DBNAME"] = config["db"]
 
 if config["source"] == "ncbi":
-    os.system("./download_ncbi.sh")
+    os.system(os.environ["SCA_SERVICE_DIR"]+"/download_ncbi.sh")
 
 product = {'type': 'blastdb', 'name': config["db"]}
 with open('products.json', 'w') as out:
