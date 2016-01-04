@@ -1,2 +1,3 @@
-# sca-service-blast
-SCA service to deal with blast DB
+# sca-service-blastdb
+
+Download blastdb from various public sources
