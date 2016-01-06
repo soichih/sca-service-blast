@@ -10,6 +10,6 @@ os.environ["DBNAME"] = config["db"]
 if config["source"] == "ncbi":
     os.system(os.environ["SCA_SERVICE_DIR"]+"/download_ncbi.sh")
 
-product = {'type': 'blastdb', 'name': config["db"]}
+product = {'type': 'blastdb', 'name': config["db"], 'source': config["source"]}
 with open('products.json', 'w') as out:
     json.dump([product], out)
