@@ -22,3 +22,5 @@ ret=$?
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 1, \"msg\":\"Finished Building DB\"}" $progress_url
 
 echo "[{\"type\": \"bio/blastdb\", \"name\": \"$dbname\", \"dbtype\": \"$dbtype\"}]" > products.json
+
+exit $ret
