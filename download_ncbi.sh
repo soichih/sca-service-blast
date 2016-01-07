@@ -14,5 +14,4 @@ then
         echo "this is multipart db - untarring .pal or .nal from $DBNAME.00.tar.gz"
         tar -vxzf $DBNAME.00.tar.gz $DBNAME.*al
 fi
-
 #curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"finished\", \"progress\": 1, \"msg\":\"Finished downloading $DBNAME\"}" $progress_url
