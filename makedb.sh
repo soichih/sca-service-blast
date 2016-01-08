@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 ## These three lines will cause stdout/err to go a logfile as well
 LOGFILE=run.log
