@@ -14,7 +14,7 @@ dbtitle=sometitle
 dbname=somedb
 input_file=${SCA_TASK_DIR_FASTA}/sub.fasta.txt
 
-curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"$dbname\", \"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
 
 module load ncbi-blast+
 
@@ -25,7 +25,8 @@ module load ncbi-blast+
 #    [-gi_mask_name gi_based_mask_names] [-out database_name]
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
-makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
+#makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
+makeblastdb -in $input_file -title $input_file
 ret=$?
 if [ $ret -eq 0 ]
 then
