@@ -12,6 +12,7 @@ progress_url="{$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}.makeblastdb"
 dbtype=nucl
 dbtitle=sometitle
 dbname=somedb
+input_file=${SCA_TASK_DIR_FASTA}/sub.fasta.txt
 
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
 
@@ -24,11 +25,17 @@ module load ncbi-blast+
 #    [-gi_mask_name gi_based_mask_names] [-out database_name]
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
-makeblastdb -in $FASTA/sub.fasta.txt -dbtype $dbtype -title $dbtitle -out $dbname
+makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
 ret=$?
-
-curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 1, \"msg\":\"Finished Building DB\"}" $progress_url
-
-echo "[{\"type\": \"bio/blastdb\", \"name\": \"$dbname\", \"dbtype\": \"$dbtype\"}]" > products.json
+if [ $ret -eq 0 ]
+then
+    status="finished"
+    msg="Successfully built blast DB"
+    echo "[{\"type\": \"bio/blastdb\", \"name\": \"$dbname\", \"dbtype\": \"$dbtype\", \"source\":\"user\"}]" > products.json
+else
+    status="failed"
+    msg="makeblastdb returned code:$ret"
+fi
+curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"finished\", \"progress\": 1, \"msg\":\"Finished Building DB\"}" $progress_url
 
 exit $ret
