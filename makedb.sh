@@ -26,7 +26,7 @@ module load ncbi-blast+
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
 #makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
-makeblastdb -in $input_file -title $input_file
+makeblastdb -in $input_file -title $input_file -dbtype $dbtype
 ret=$?
 if [ $ret -eq 0 ]
 then
