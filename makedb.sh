@@ -13,10 +13,10 @@ export PATH=$PATH:~/.sca/bin/node/bin
 export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
 
 progress_url="{$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}.makeblastdb"
-dbtype=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type :first_child'`
+dbtype=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type :first-child'`
 dbtitle=sometitle
 dbname=somedb
-input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .filename :first_child'`
+input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .filename :first-child'`
 input_filepath=$SCA_TASK_DIR_FASTA/$input_file
 
 curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"$dbname\", \"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
