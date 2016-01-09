@@ -30,9 +30,8 @@ module load ncbi-blast+
 #    [-gi_mask_name gi_based_mask_names] [-out database_name]
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
-#makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
-echo "makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype"
-makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype
+echo "makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname"
+makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname
 ret=$?
 if [ $ret -eq 0 ]
 then
