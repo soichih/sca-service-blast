@@ -24,7 +24,7 @@ dbname=somedb
 input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .filename' --outfmt text`
 input_filepath=$SCA_TASK_DIR_FASTA/$input_file
 
-curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"$dbname\", \"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
+curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
 
 module load ncbi-blast+
 
