@@ -38,7 +38,7 @@ module load ncbi-blast+
 echo "aprun -n 1 makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname"
 aprun -n 1 makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname
 ret=$?
-cat $ret > exit.code
+echo $ret > exit.code
 if [ $ret -eq 0 ]
 then
     status="finished"
