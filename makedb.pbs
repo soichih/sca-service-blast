@@ -1,12 +1,17 @@
 #!/bin/bash
+#PBS -l nodes=1:ppn=1:dc2
+#PBS -l walltime=0:10:00
+#PBS -N makeblastdb
+#PBS -V
 
-## These three lines will cause stdout/err to go a logfile as well
-#LOGFILE=run.log
-#exec > >(tee -a ${LOGFILE})
-#exec 2> >(tee -a ${LOGFILE} >&2)
+echo "env available to psb script"
+set | grep SCA | sort
+set | grep PBS | sort
 
-#debug..
-#env | sort #| grep SCA 
+echo "go back to SCA TASK DIR"
+cd $PBS_O_WORKDIR
+
+#aprun -n 1 ~/.sca/services/blast_makedb/makedb.sh
 
 #enable nodejs stuff
 export PATH=$PATH:~/.sca/bin/node/bin
@@ -30,9 +35,10 @@ module load ncbi-blast+
 #    [-gi_mask_name gi_based_mask_names] [-out database_name]
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
-echo "makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname"
-makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname
+echo "aprun -n 1 makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname"
+aprun -n 1 makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype -out $dbname
 ret=$?
+cat $ret > exit.code
 if [ $ret -eq 0 ]
 then
     status="finished"
@@ -44,4 +50,6 @@ else
 fi
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"finished\", \"progress\": 1, \"msg\":\"Finished Building DB\"}" $progress_url
 
+rm running
 exit $ret
+
