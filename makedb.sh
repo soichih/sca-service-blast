@@ -11,13 +11,13 @@ env | sort #| grep SCA
 #enable nodejs stuff
 export PATH=$PATH:~/.sca/bin/node/bin
 export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
-cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type'
 
 progress_url="{$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}.makeblastdb"
-dbtype=nucl
+dbtype=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type :first_child'`
 dbtitle=sometitle
 dbname=somedb
-input_file=${SCA_TASK_DIR_FASTA}/sub.fasta.txt
+input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .filename :first_child'`
+input_filepath=$SCA_TASK_DIR_FASTA/$input_file
 
 curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"$dbname\", \"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $progress_url
 
@@ -31,7 +31,7 @@ module load ncbi-blast+
 #    [-max_file_sz number_of_bytes] [-taxid TaxID] [-taxid_map TaxIDMapFile]
 #    [-logfile File_Name] [-version]
 #makeblastdb -in $input_file -dbtype $dbtype -title $dbtitle -out $dbname
-makeblastdb -in $input_file -title $input_file -dbtype $dbtype
+makeblastdb -in $input_filepath -title $input_file -dbtype $dbtype
 ret=$?
 if [ $ret -eq 0 ]
 then
