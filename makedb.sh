@@ -8,6 +8,11 @@ exec 2> >(tee -a ${LOGFILE} >&2)
 #debug..
 env | sort #| grep SCA 
 
+#enable nodejs stuff
+export PATH=$PATH:~/.sca/bin/node/bin
+export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
+cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type'
+
 progress_url="{$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}.makeblastdb"
 dbtype=nucl
 dbtitle=sometitle

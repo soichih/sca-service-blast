@@ -6,4 +6,7 @@ exec > >(tee -a ${LOGFILE})
 exec 2> >(tee -a ${LOGFILE} >&2)
 env | sort | grep SCA #debug..
 
+#debug..
+#env | sort | grep SCA
+
 $SCA_SERVICE_DIR/importdb.py
