@@ -20,6 +20,7 @@ export BLASTDB=$SCA_TASK_DIR_DB
 (cd $SCA_TASK_DIR_DB && tar -xzf $dbname.tar.gz)
 echo "running: blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out blast.out -outfmt 6"
 blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out blast.out -outfmt 6
+echo "blast return code $ret"
 ret=$?
 
 echo "[{\"type\": \"bio/blast\", \"outfmt\": \"tabular\", \"name\": \"$query_filename against $dbname\"}]" > products.json
