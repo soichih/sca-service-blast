@@ -17,9 +17,11 @@ query_filename=`cat $SCA_TASK_DIR_QUERY/products.json | underscore select '.fast
 
 export BLASTDB=$SCA_TASK_DIR_DB
 
-(cd $SCA_TASKDIR_DB && tar -xzf $dbname.tar.gz)
+(cd $SCA_TASK_DIR_DB && tar -xzf $dbname.tar.gz)
 echo "running: blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out blast.out -outfmt 6"
 blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out blast.out -outfmt 6
+ret=$?
 
 echo "[{\"type\": \"bio/blast\", \"outfmt\": \"tabular\", \"name\": \"$query_filename against $dbname\"}]" > products.json
 
+exit $ret
