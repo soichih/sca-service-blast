@@ -3,8 +3,8 @@
 #download db
 #DBNAME=nr
 echo "Downloading $DBNAME"
-mkdir -p $DBNAME
-cd $DBNAME
+#mkdir -p $DBNAME
+#cd $DBNAME
 
 #curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Downloading $DBNAME\"}" $progress_url
 wget -nH --cut-dirs=3 -r ftp://ftp.ncbi.nlm.nih.gov/blast/db/$DBNAME*
