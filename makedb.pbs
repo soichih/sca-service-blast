@@ -17,10 +17,11 @@ cd $PBS_O_WORKDIR
 export PATH=$PATH:~/.sca/bin/node/bin
 export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
 
-dbtype=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .type' --outfmt text`
+#TODO - SCA doesn't pass which file_idx that I need to process - just pick the first one
+dbtype=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select ':first-child .fasta .type' --outfmt text`
 dbtitle=sometitle
 dbname=somedb
-input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select '.fasta .filename' --outfmt text`
+input_file=`cat $SCA_TASK_DIR_FASTA/products.json | underscore select ':first-child .fasta .filename' --outfmt text`
 input_filepath=$SCA_TASK_DIR_FASTA/$input_file
 
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Building DB\"}" $SCA_PROGRESS_URL
