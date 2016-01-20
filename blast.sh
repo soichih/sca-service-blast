@@ -13,7 +13,9 @@ export PATH=$PATH:~/.sca/bin/node/bin
 export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
 
 dbname=`cat $SCA_TASK_DIR_DB/products.json | underscore select '.name' --outfmt text`
-query_filename=`cat $SCA_TASK_DIR_QUERY/products.json | underscore select '.fasta .filename' --outfmt text`
+
+#TODO - let's use the first-child because SCA doesn't pass file_idx yet.
+query_filename=`cat $SCA_TASK_DIR_QUERY/products.json | underscore select ':first-child .fasta .filename' --outfmt text`
 outfile=blast.out
 
 export BLASTDB=$SCA_TASK_DIR_DB
