@@ -12,7 +12,6 @@ env | sort | grep SCA
 export PATH=$PATH:~/.sca/bin/node/bin
 export PATH=$PATH:~/.sca/node_modules/underscore-cli/bin
 
-#progress_url={$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}
 dbname=`cat $SCA_TASK_DIR_DB/products.json | underscore select '.name' --outfmt text`
 query_filename=`cat $SCA_TASK_DIR_QUERY/products.json | underscore select '.fasta .filename' --outfmt text`
 outfile=blast.out

@@ -7,8 +7,7 @@ jobid=`qsub ~/.sca/services/blast_makedb/makedb.pbs`
 #echo "joid: $jobid"
 echo $jobid > running
 
-progress_url="{$SCA_PROGRESS_URL}/{$SCA_PROGRESS_KEY}"
-curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"waiting\", \"progress\": 0, \"msg\":\"Waiting on pbs queue\"}" $progress_url
+curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"waiting\", \"progress\": 0, \"msg\":\"Waiting on pbs queue\"}" $SCA_PROGRESS_URL
 
 #wait for job to finish
 while [ -f running ] ;
