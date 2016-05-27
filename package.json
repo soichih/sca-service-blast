@@ -1,0 +1,24 @@
+{
+  "name": "sca-service-blast",
+  "version": "1.0.0",
+  "description": "Download blastdb from various public sources",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "start.sh",
+    "status": "status.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soichih/sca-service-blast.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soichih/sca-service-blast/issues"
+  },
+  "homepage": "https://github.com/soichih/sca-service-blast#readme"
+}

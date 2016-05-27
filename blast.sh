@@ -21,10 +21,13 @@ outfile=blast.out
 export BLASTDB=$SCA_TASK_DIR_DB
 
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Untarring blast DB\"}" $SCA_PROGRESS_URL
-(cd $SCA_TASK_DIR_DB && tar -xzf $dbname.tar.gz)
+#(cd $SCA_TASK_DIR_DB && tar -xzf $dbname.tar.gz)
+(cd $SCA_TASK_DIR_DB && find *.tar.gz -exec tar -xzf {} \;)
 
 curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"running\", \"progress\": 0, \"msg\":\"Running blast\"}" $SCA_PROGRESS_URL
 echo "running: blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out $outfile -outfmt 6"
+
+#TODO - need to pick right executable based on type of input query and database type
 blastp -query $SCA_TASK_DIR_QUERY/$query_filename -db $dbname -out blast.out -outfmt 6
 echo "blast return code $ret"
 ret=$?
